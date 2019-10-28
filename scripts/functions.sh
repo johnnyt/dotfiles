@@ -1,5 +1,34 @@
 #! /usr/bin/env sh
 
+asdf_plugin() {
+  local name="$1"
+
+  if ! asdf plugin-list | grep -Fq "$name"; then
+    asdf plugin-add "$name"
+  else
+    asdf plugin-update "$name"
+  fi
+}
+
+asdf_language() {
+  local language="$1"
+  local version
+  version="$(asdf list-all "$language" | grep -v "[a-z]" | tail -1)"
+
+  if ! asdf list "$language" | grep -Fq "$version"; then
+    asdf install "$language" "$version"
+    asdf global "$language" "$version"
+  fi
+}
+
+gem_install_or_update() {
+  if gem list "$1" --installed > /dev/null; then
+    gem update "$@"
+  else
+    gem install "$@"
+  fi
+}
+
 symlink() {
     OVERWRITTEN=""
     if [ -e "$2" ] || [ -h "$2" ]; then

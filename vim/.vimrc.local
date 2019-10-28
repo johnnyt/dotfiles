@@ -1,0 +1,259 @@
+" Use sh internally
+if &shell =~# 'fish$'
+  set shell=/bin/bash
+endif
+
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+" ================ Hooks (Startup) ==================
+
+" Auto open NERDTree on startup if no files are specified
+autocmd vimenter * if !argc() | NERDTree | endif
+
+" Auto open NERDTree on startup
+" autocmd vimenter * NERDTree
+
+" Move focus to the main window
+"autocmd vimenter * wincmd p
+
+" Close vim if the only window left open is NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" Mirror tree position for every buffer
+" autocmd BufEnter * NERDTreeMirror
+
+" Set current dir to vim cwd
+"set autochdir
+"let NERDTreeChDirMode=2
+
+" Ctrl+d to toggle NerdTree
+"nmap <silent> <C-D> :NERDTreeToggle<CR>
+
+" ================ Remapping ========================
+
+let mapleader = "," " lead with ,
+
+" toggle NERDTree
+map <leader>n :NERDTreeToggle<CR>
+
+map <leader><space> :CtrlP<CR>
+
+" toggle undotree
+map <leader>u :UndotreeToggle<CR>
+
+" LustyExplorer shortcuts
+" See https://github.com/vim-scripts/LustyExplorer/blob/master/plugin/lusty-explorer.vim#L25
+" <Leader>lf  - Opens filesystem explorer.
+" <Leader>lr  - Opens filesystem explorer at the directory of the current file.
+" <Leader>lb  - Opens buffer explorer.
+" <Leader>lg  - Opens buffer grep
+
+" As you type, the table updates for possible matches using a
+" fuzzy matching algorithm (or regex matching, in the case of
+" grep).  Special keys include:
+"
+"   <Enter>  open selected match
+"   <C-o>    open selected match in a new h[o]rizontal split
+"   <C-v>    open selected match in a new [v]ertical split
+"   <C-u>    clear prompt
+"
+" Additional shortcuts for the filesystem explorer:
+"
+"   <C-w>    ascend one directory at prompt
+"   <C-r>    [r]efresh directory contents
+"   <C-a>    open [a]ll files in current table
+"   <C-e>    create new buffer with the given name and path
+
+map <leader>t :LustyFilesystemExplorer<CR>
+map <leader>b :LustyBufferExplorer<CR>
+
+" LustyJuggler
+" <Leader>lj
+" The buffer names are mapped to these keys:
+"   1st --> a or 1
+"   2nd --> s or 2
+"   3rd --> d or 3
+"   4th --> f or 4
+"   5th --> g or 5
+"   6th --> h or 6
+"   7th --> j or 7
+"   8th --> k or 8
+"   9th --> l or 9
+"   10th --> ; or 0
+" So if you type "f" or "4", the fourth buffer name will be highlighted
+" If you want to switch to that buffer, press "f" or "4" again or press "<ENTER>"
+map <leader>j :LustyJuggler<CR>
+
+" ================ Completion =======================
+
+set wildmode=list:longest
+set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
+set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
+set wildignore+=*vim/backups*
+set wildignore+=*sass-cache*
+set wildignore+=*DS_Store*
+set wildignore+=vendor/rails/**
+set wildignore+=vendor/cache/**
+set wildignore+=*.gem
+set wildignore+=log/**
+set wildignore+=tmp/**
+set wildignore+=*.png,*.jpg,*.gif
+
+" show YankRing - use 'q' to close the quick fix window
+" <C-p> and <C-n> cycle through entries without the quick fix window
+"map <leader>y :YRShow<CR>
+
+"  Strip all trailing whitespace in file
+function! StripWhitespace ()
+    exec ':%s/ \+$//g'
+endfunction
+map <leader>s :call StripWhitespace ()<CR>
+
+" shortcut for : - saves 1 keystroke
+nnoremap ; :
+
+" save a file that requires root privileges (e.g. /etc/hosts)
+cmap w!! w !sudo tee % >/dev/null
+
+" ================ UI ===============================
+
+set number                      " line numbers are good
+set ruler                       " show the cursor position all the time
+set nolazyredraw                " turn off lazy redraw
+set showcmd                     " show incomplete cmds down the bottom
+set showmode                    " show current mode down the bottom
+set gcr=a:blinkon0              " disable cursor blink
+syntax enable                   " turn on syntax highlighting
+
+"let g:solarized_termcolors=256
+" let g:solarized_termcolors=16
+"set t_Co=16
+"set background=dark             " use the dark version of solarized
+"colorscheme solarized           " solarized color scheme
+
+set t_Co=256
+color dracula
+
+" ================ Visual Cues ======================
+
+set showmatch              " brackets/braces that is
+set mat=5                  " duration to show matching brace (1/10 sec)
+set laststatus=2           " always show the status line
+set visualbell             " don't beep
+set noerrorbells           " don't beep
+
+" ================ General Config ====================
+
+set backspace=indent,eol,start  " allow backspace in insert mode
+set history=10000               " store lots of :cmdline history
+set autoread                    " reload files changed outside vim
+set nostartofline               " don't jump to the start of line when scrolling
+set scrolloff=8                 " start scrolling when we're 8 lines away from margins
+set sidescrolloff=15
+set sidescroll=1
+
+" This makes vim act like all other editors, buffers can
+" exist in the background without being in a window.
+" http://items.sjbach.com/319/configuring-vim-right
+set hidden
+
+" ================ Search Settings  =================
+
+set incsearch        " Find the next match as we type the search
+"set ignorecase       " ignore case when searching
+set smartcase        " case insensitive if all lower, case sensitive otherwise
+set nohlsearch       " don't highlight searches
+set viminfo='100,f1  " Save up to 100 marks, enable capital marks
+
+" ================ Indentation ======================
+
+set autoindent       " automatic indent new lines
+set smartindent      " be smart about it
+set softtabstop=2    " yep, two
+set shiftwidth=2     " ..
+set tabstop=2
+set expandtab        " expand tabs to spaces
+set nosmarttab       " tabs are gonzo
+
+" ================ Text Formatting ===================
+
+set nowrap           " don't wrap lines by default
+set linebreak        " wrap lines at convenient points
+set virtualedit=block " allow virtual edit in visual block ..
+
+filetype plugin on
+
+"set list listchars=tab:\ \ ,trail:? " Display tabs and trailing spaces visually
+
+" ================ Turn Off Swap Files ==============
+
+set noswapfile
+set nobackup
+set nowb
+
+" ================ Persistent Undo ==================
+" Keep undo history across sessions, by storing in file.
+
+silent !mkdir -p ~/.vimbackups > /dev/null 2>&1
+set undodir=~/.vimbackups
+set undofile
+
+
+" XML formatter
+function! DoFormatXML() range
+  " Save the file type
+  let l:origft = &ft
+
+  " Clean the file type
+  set ft=
+
+  " Add fake initial tag (so we can process multiple top-level elements)
+  exe ":let l:beforeFirstLine=" . a:firstline . "-1"
+  if l:beforeFirstLine < 0
+    let l:beforeFirstLine=0
+  endif
+  exe a:lastline . "put ='</PrettyXML>'"
+  exe l:beforeFirstLine . "put ='<PrettyXML>'"
+  exe ":let l:newLastLine=" . a:lastline . "+2"
+  if l:newLastLine > line('$')
+    let l:newLastLine=line('$')
+  endif
+
+  " Remove XML header
+  exe ":" . a:firstline . "," . a:lastline . "s/<\?xml\\_.*\?>\\_s*//e"
+
+  " Recalculate last line of the edited code
+  let l:newLastLine=search('</PrettyXML>')
+
+  " Execute external formatter
+  exe ":silent " . a:firstline . "," . l:newLastLine . "!xmllint --noblanks --format --recover -"
+
+  " Recalculate first and last lines of the edited code
+  let l:newFirstLine=search('<PrettyXML>')
+  let l:newLastLine=search('</PrettyXML>')
+
+  " Get inner range
+  let l:innerFirstLine=l:newFirstLine+1
+  let l:innerLastLine=l:newLastLine-1
+
+  " Remove extra unnecessary indentation
+  exe ":silent " . l:innerFirstLine . "," . l:innerLastLine "s/^  //e"
+
+  " Remove fake tag
+  exe l:newLastLine . "d"
+  exe l:newFirstLine . "d"
+
+  " Put the cursor at the first line of the edited code
+  exe ":" . l:newFirstLine
+
+  " Restore the file type
+  exe "set ft=" . l:origft
+endfunction
+command! -range=% FormatXML <line1>,<line2>call DoFormatXML()
+
+nmap <silent> <leader>x :%FormatXML<CR>
+vmap <silent> <leader>x :FormatXML<CR>
+
+let g:ctrlp_map = '<c-p>'
