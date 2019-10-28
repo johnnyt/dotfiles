@@ -6,13 +6,13 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" Let Vundle manage Vundle
-Bundle 'gmarik/vundle'
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
 
-Bundle 'pearofducks/ansible-vim'
+"Bundle 'pearofducks/ansible-vim'
 Bundle 'scrooloose/nerdtree'
-"Bundle 'altercation/vim-colors-solarized'
-"Bundle 'dracula/vim'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'dracula/vim'
 Bundle 'mbbill/undotree'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'vim-scripts/tComment'
@@ -20,6 +20,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'vim-airline/vim-airline'
 Plugin 'mileszs/ack.vim'
 Plugin 'elixir-editors/vim-elixir'
+
 
 " Define bundles via Github repos
 "Bundle 'christoomey/vim-run-interactive'

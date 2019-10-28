@@ -3,6 +3,7 @@ tap "homebrew/services"
 tap "universal-ctags/universal-ctags"
 
 # Core / Unix
+brew "autoconf"
 brew "universal-ctags", args: ["HEAD"]
 brew "git"
 brew "openssl"
@@ -23,6 +24,8 @@ brew "fish"
 brew "hub"
 brew "mas"
 brew "overmind"
+
+brew "wxmac" # wxWidgets - used by erlang
 
 cask "1password"
 cask "dropbox"
