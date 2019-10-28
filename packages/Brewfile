@@ -24,6 +24,7 @@ brew "fish"
 brew "hub"
 brew "mas"
 brew "overmind"
+brew "ranger"
 
 brew "wxmac" # wxWidgets - used by erlang
 
