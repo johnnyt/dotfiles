@@ -14,8 +14,10 @@ if [ ! -d "$DESTINATION" ]; then
   cd $DESTINATION && git checkout "$(git describe --abbrev=0 --tags)" && cd -
 fi
 
-info "Adding asdf languages ..."
 source "$HOME/.asdf/asdf.sh"
+
+info "Adding asdf languages ..."
+asdf plugin-list-all > /dev/null # Clone the plugin repo
 asdf_language "erlang"
 asdf_language "elixir"
 
@@ -25,7 +27,7 @@ gem update --system
 number_of_cores=$(sysctl -n hw.ncpu)
 bundle config --global jobs $((number_of_cores - 1))
 
-fancy_echo "Installing latest Node ..."
+info "Installing latest Node ..."
 bash "$HOME/.asdf/plugins/nodejs/bin/import-release-team-keyring"
 asdf_language "nodejs"
 

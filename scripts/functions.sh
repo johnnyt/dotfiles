@@ -13,6 +13,9 @@ asdf_plugin() {
 asdf_language() {
   local language="$1"
   local version
+
+  asdf_plugin $language
+
   version="$(asdf list-all "$language" | grep -v "[a-z]" | tail -1)"
 
   if ! asdf list "$language" | grep -Fq "$version"; then
