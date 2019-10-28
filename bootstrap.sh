@@ -61,42 +61,8 @@ fi
 # Package control must be executed first in order for the rest to work
 ./packages/setup.sh
 
-
-case "$SHELL" in
-  */fish)
-    if [ "$(command -v fish)" != '/usr/local/bin/fish' ] ; then
-      update_shell "fish"
-    fi
-    ;;
-  *)
-    update_shell "fish"
-    ;;
-esac
-
-
-info "Configuring asdf version manager ..."
-if [ ! -d "$HOME/.asdf" ]; then
-  git clone https://github.com/asdf-vm/asdf.git ~/.asdf
-  cd ~/.asdf && git checkout "$(git describe --abbrev=0 --tags)" && cd -
-fi
-
-info "Adding asdf languages ..."
-source "$HOME/.asdf/asdf.sh"
-asdf_language "erlang"
-asdf_language "elixir"
-
-info "Setting up ruby ..."
-asdf_language "ruby"
-gem update --system
-number_of_cores=$(sysctl -n hw.ncpu)
-bundle config --global jobs $((number_of_cores - 1))
-
-fancy_echo "Installing latest Node ..."
-bash "$HOME/.asdf/plugins/nodejs/bin/import-release-team-keyring"
-asdf_language "nodejs"
-
-success "Finished adding asdf languages"
-
+./asdf/setup.sh
+./fish/setup.sh
 ./git/setup.sh
 ./vim/setup.sh
 
