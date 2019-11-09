@@ -1,6 +1,7 @@
 tap "homebrew/bundle"
 tap "homebrew/services"
 tap "universal-ctags/universal-ctags"
+tap "heroku/brew"
 
 # Core / Unix
 brew "autoconf"
@@ -10,6 +11,7 @@ brew "openssl"
 brew "the_silver_searcher"
 brew "tmux"
 brew "vim"
+brew "neovim"
 brew "zsh"
 
 
@@ -24,7 +26,17 @@ brew "fish"
 brew "hub"
 brew "mas"
 brew "overmind"
-brew "ranger"
+brew "lf"
+
+brew "task"
+cask "kitty"
+cask "docker"
+brew "docker-compose"
+
+brew "kubernetes-cli"
+brew "aws-iam-authenticator"
+brew "kubectx"
+cask "1password-cli"
 
 brew "wxmac" # wxWidgets - used by erlang
 

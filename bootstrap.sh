@@ -64,6 +64,7 @@ fi
 ./asdf/setup.sh
 ./fish/setup.sh
 ./git/setup.sh
+./macos/setup.sh
 ./vim/setup.sh
 
 #find * -name "setup.sh" -not -wholename "packages*" | while read setup; do

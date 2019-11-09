@@ -1,6 +1,6 @@
 " Use sh internally
 if &shell =~# 'fish$'
-  set shell=/bin/bash
+  set shell=/bin/zsh
 endif
 
 if executable('ag')

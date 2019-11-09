@@ -10,6 +10,8 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 "Bundle 'pearofducks/ansible-vim'
+Bundle 'vimwiki/vimwiki'
+Bundle 'tpope/vimdadbod'
 Bundle 'scrooloose/nerdtree'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'dracula/vim'

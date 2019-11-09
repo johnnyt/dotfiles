@@ -5,12 +5,14 @@ set -x -g TERM "xterm-256color"
 set -x -g LC_ALL en_US.UTF-8
 set -x -g LANG en_US.UTF-8
 
+set -x ERL_AFLAGS "-kernel shell_history enabled"
+
 # Coreutils bin and man folders
-set -x -g PATH (brew --prefix coreutils)/libexec/gnubin $PATH
+# set -x -g PATH /usr/local/opt/libexec/gnubin $PATH
 # set -x -g MANPATH (brew --prefix coreutils)/libexec/gnuman $MANPATH
 
 # Findutils bin and man folders
-set -x -g PATH (brew --prefix findutils)/libexec/gnubin $PATH
+# set -x -g PATH (brew --prefix findutils)/libexec/gnubin $PATH
 # set -x -g MANPATH (brew --prefix findutils)/libexec/gnuman $MANPATH
 
 # User bin folder

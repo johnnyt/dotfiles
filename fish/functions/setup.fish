@@ -14,11 +14,10 @@ function setup
     abbr gs git status
     abbr gc git commit -m
     abbr gm git pull --ff-only
-    abbr gr git rb FETCH_HEAD
     abbr ga git add
     abbr gp git push
     abbr gd git diff
-    abbr l ls -lhA
+    abbr l ls -lah
     abbr bs brew services
 
     abbr bx bundle exec
