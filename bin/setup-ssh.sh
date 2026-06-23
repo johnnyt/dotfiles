@@ -63,7 +63,13 @@ TITLE="$(hostname -s)-$(date +%Y%m%d)"
 # ---------------------------------------------------------------------------
 # 4. GitHub
 # ---------------------------------------------------------------------------
-if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1; then
+# Short-circuit if the existing key already authenticates — no point adding it
+# again or opening a browser. GitHub exits 1 even on success, so match the
+# banner text rather than the exit code.
+if ssh -T -o StrictHostKeyChecking=accept-new -o ConnectTimeout=5 git@github.com 2>&1 \
+     | grep -q "successfully authenticated"; then
+  success "GitHub SSH already works — skipping key registration."
+elif command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1; then
   if gh ssh-key add "$PUB" --title "$TITLE" >/dev/null 2>&1; then
     success "Added SSH key to GitHub (via gh)."
   else
@@ -79,7 +85,11 @@ fi
 # ---------------------------------------------------------------------------
 # 5. GitLab
 # ---------------------------------------------------------------------------
-if command -v glab >/dev/null 2>&1 && glab auth status >/dev/null 2>&1; then
+# Same short-circuit as GitHub; GitLab's success banner is "Welcome to GitLab".
+if ssh -T -o StrictHostKeyChecking=accept-new -o ConnectTimeout=5 git@gitlab.com 2>&1 \
+     | grep -q "Welcome to GitLab"; then
+  success "GitLab SSH already works — skipping key registration."
+elif command -v glab >/dev/null 2>&1 && glab auth status >/dev/null 2>&1; then
   if glab ssh-key add "$PUB" --title "$TITLE" >/dev/null 2>&1; then
     success "Added SSH key to GitLab (via glab)."
   else
