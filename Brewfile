@@ -33,6 +33,7 @@ brew "sops"             # secrets encryption
 brew "scc"              # lines-of-code / complexity
 brew "bandwhich"        # per-process network usage
 brew "overmind"         # Procfile process manager
+brew "mas"              # Mac App Store CLI (drives the `mas` entries below)
 
 # ---------------------------------------------------------------------------
 # CLI — databases
@@ -75,6 +76,7 @@ cask "lastpass"
 cask "slack"
 cask "zoom"
 cask "postman"
+cask "istat-menus"             # system monitoring in the menu bar
 
 # ---------------------------------------------------------------------------
 # GUI — optional / situational (uncomment as needed)
@@ -88,6 +90,14 @@ cask "postman"
 # cask "blender"
 # cask "steam"
 # cask "battle-net"
+
+# ---------------------------------------------------------------------------
+# Mac App Store (via `mas`)
+# ---------------------------------------------------------------------------
+# Note: on current macOS, `mas` can only install apps already associated with
+# the signed-in Apple ID. Open the App Store, sign in, and "get" Dato once if
+# it isn't in your purchase history yet.
+mas "Dato", id: 1470584107     # menu bar calendar / clock
 
 # ---------------------------------------------------------------------------
 # VS Code extensions
