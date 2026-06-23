@@ -88,7 +88,7 @@ alt-shift-9 = 'move-node-to-workspace 9'
 
 # Jump back to previous workspace; throw a workspace to the next monitor
 alt-tab = 'workspace-back-and-forth'
-alt-shift-tab = 'move-workspace-to-monitor --wrap-around'
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
 # Enter service mode (reload / reset / float / close-others)
 alt-shift-semicolon = 'mode service'
