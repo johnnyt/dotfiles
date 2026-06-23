@@ -22,6 +22,11 @@ set -gx KERL_BUILD_DOCS true
 # ---------------------------------------------------------------------------
 fish_add_path ~/bin ~/.local/bin ~/.mix/escripts
 
+# Homebrew — must load BEFORE the interactive block below, which inits tools
+# installed via brew (starship, fzf, direnv). If brew isn't on PATH first, those
+# `type -q` checks fail silently and you get no prompt / no key bindings.
+test -x /opt/homebrew/bin/brew; and eval (/opt/homebrew/bin/brew shellenv)
+
 # ---------------------------------------------------------------------------
 # Interactive shell only
 # ---------------------------------------------------------------------------
@@ -48,7 +53,6 @@ if status is-interactive
 end
 
 # ---------------------------------------------------------------------------
-# Homebrew + mise (must come last so its shims take precedence)
+# mise — activate last so its shims take precedence over other tools on PATH
 # ---------------------------------------------------------------------------
-test -x /opt/homebrew/bin/brew; and eval (/opt/homebrew/bin/brew shellenv)
 type -q mise; and mise activate fish | source
