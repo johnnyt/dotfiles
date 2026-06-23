@@ -1,0 +1,5 @@
+require("lazy-config")
+require("options")
+require("keymap")
+require("plugins")
+require("autocmds")

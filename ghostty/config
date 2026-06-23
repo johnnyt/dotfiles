@@ -1,0 +1,28 @@
+# ~/.config/ghostty/config
+# Reload in-app with cmd+shift+,  ·  see all options with: ghostty +show-config --default --docs
+
+# --- Font ---------------------------------------------------------------
+font-family = "FiraCode Nerd Font Mono"
+font-size = 14
+font-thicken = true
+
+# --- Theme --------------------------------------------------------------
+theme = "catppuccin-mocha"
+background-opacity = 0.97
+background-blur = 20
+
+# --- Window -------------------------------------------------------------
+window-padding-x = 10
+window-padding-y = 8
+window-save-state = always
+macos-titlebar-style = tabs
+mouse-hide-while-typing = true
+copy-on-select = clipboard
+
+# --- Shell --------------------------------------------------------------
+# Uses your default login shell (fish, set by install.sh). Uncomment to force:
+# command = /opt/homebrew/bin/fish
+
+# --- Keybindings --------------------------------------------------------
+keybind = cmd+enter=toggle_fullscreen
+keybind = cmd+k=clear_screen

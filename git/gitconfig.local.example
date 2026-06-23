@@ -1,0 +1,5 @@
+; Per-machine git identity. install.sh copies this to ~/.gitconfig.local
+; (which is NOT tracked) so you can use a different name/email per machine.
+[user]
+  name = JohnnyT
+  email = ubergeek3141@gmail.com

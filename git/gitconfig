@@ -1,0 +1,68 @@
+[user]
+  email = ubergeek3141@gmail.com
+[include]
+  ; per-machine name/email lives here (untracked)
+  path = ~/.gitconfig.local
+
+[core]
+  excludesfile = ~/.gitignore_global
+  editor = nvim
+  autocrlf = input
+
+[color]
+  ui = auto
+[merge]
+  ff = only
+[fetch]
+  prune = true
+[status]
+  showUntrackedFiles = all
+[rerere]
+  enabled = true
+[rebase]
+  autosquash = true
+[push]
+  default = current
+[pull]
+  rebase = true
+  ff = only
+
+[url "git@github.com:"]
+  insteadOf = https://github.com/
+
+[alias]
+  st = status
+  ci = commit -v
+  ca = commit --amend
+  co = checkout
+  aa = add --all
+  ap = add --patch
+  unstage = reset HEAD --
+  uncommit = reset --soft HEAD~
+
+  files = !git diff --name-only $(git merge-base HEAD \"master\")
+  review = !nvim -p $(git files) +\"tabdo Gdiff master\" +\"let g:gitgutter_diff_base = 'master'\"
+
+  pr = !gh pr create
+  up = !git fetch origin && git rebase origin/master
+  merge-branch = !git checkout master && git merge @{-1}
+  create-branch = !sh -c 'git push origin HEAD:refs/heads/$1 && git fetch origin && git branch --track $1 origin/$1 && cd . && git checkout $1' -
+  delete-branch = !sh -c 'git push origin :refs/heads/$1 && git branch -D $1' -
+
+  lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+  lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+  lg = !git lg1
+
+  ; fetch, stash if needed, rebase, then pop
+  rb = "!f() { \
+      echo fetching...; \
+      git fetch; \
+      last_status=$(git status --untracked-files=no --porcelain); \
+      if [ \"$last_status\" != \"\" ]; then echo stashing...; git stash; fi; \
+      echo rebasing...; \
+      if git rebase; then \
+        if [ \"$last_status\" != \"\" ]; then echo restoring stash...; git stash pop || echo 'STASH POP FAILED - resolve manually'; fi; \
+      else \
+        echo 'REBASE FAILED - run git stash pop manually'; \
+      fi; \
+  }; f"

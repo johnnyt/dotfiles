@@ -1,0 +1,9 @@
+.DS_Store
+*.swp
+*.backup.*
+
+# per-machine git identity (created from git/gitconfig.local.example)
+.gitconfig.local
+
+# nvim plugin state (managed by lazy.nvim, not tracked)
+nvim/lazy-lock.json.backup

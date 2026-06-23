@@ -1,0 +1,17 @@
+[aws]
+disabled = true
+
+[docker_context]
+disabled = true
+
+# [direnv]
+# disabled = false
+
+# [git_metrics]
+# disabled = false
+
+# [os]
+# disabled = false
+
+[time]
+disabled = false
