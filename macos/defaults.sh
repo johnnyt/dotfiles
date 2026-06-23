@@ -109,8 +109,9 @@ mkdir -p "${HOME}/Screenshots"
 defaults write com.apple.screencapture location -string "${HOME}/Screenshots"
 defaults write com.apple.screencapture type -string "png"
 defaults write com.apple.screencapture disable-shadow -bool true
-# Skip the floating thumbnail so the file lands on disk immediately.
-defaults write com.apple.screencapture show-thumbnail -bool false
+# Keep the floating thumbnail — it's how you drag a screenshot straight into an
+# app (e.g. Claude) without digging it out of the Screenshots folder.
+defaults write com.apple.screencapture show-thumbnail -bool true
 
 ###############################################################################
 # Dock & Mission Control                                                       #
