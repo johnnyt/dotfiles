@@ -6,6 +6,11 @@
 # — mise owns those. See mise/config.toml.
 
 # ---------------------------------------------------------------------------
+# Taps
+# ---------------------------------------------------------------------------
+tap "nikitabobko/tap"   # AeroSpace tiling WM
+
+# ---------------------------------------------------------------------------
 # CLI — core dev tooling
 # ---------------------------------------------------------------------------
 brew "git"
@@ -62,7 +67,7 @@ cask "font-fira-code-nerd-font"
 cask "ghostty"                 # primary terminal
 cask "visual-studio-code"
 cask "claude"
-cask "amethyst"                # tiling window manager
+cask "aerospace"               # tiling window manager (i3-style, config in aerospace/)
 cask "docker-desktop"
 cask "vivaldi"
 cask "dropbox"

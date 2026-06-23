@@ -39,6 +39,7 @@ Skip the macOS tweaks with `SKIP_MACOS=1 ~/dotfiles/install.sh`.
 | Prompt    | starship            | `starship/starship.toml`| `~/.config/starship.toml`       |
 | Terminal  | Ghostty             | `ghostty/config`        | `~/.config/ghostty/config`      |
 | Multiplexer | tmux              | `tmux/tmux.conf`        | `~/.tmux.conf`                  |
+| Window mgr | AeroSpace           | `aerospace/aerospace.toml` | `~/.config/aerospace/aerospace.toml` |
 | Editor    | Neovim              | `nvim/`                 | `~/.config/nvim`                |
 | Editor    | VS Code             | `vscode/settings.json`  | VS Code `User/settings.json`    |
 | Git       | git                 | `git/`                  | `~/.gitconfig`, etc.            |

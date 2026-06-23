@@ -109,6 +109,7 @@ link git/gitignore_global   .gitignore_global
 link mise/config.toml       .config/mise/config.toml
 link starship/starship.toml .config/starship.toml
 link ghostty/config         .config/ghostty/config
+link aerospace/aerospace.toml .config/aerospace/aerospace.toml
 link tmux/tmux.conf         .tmux.conf
 link fish/config.fish       .config/fish/config.fish
 link fish/fish_plugins      .config/fish/fish_plugins

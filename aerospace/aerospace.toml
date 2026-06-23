@@ -1,0 +1,124 @@
+# ~/.config/aerospace/aerospace.toml
+# AeroSpace tiling window manager — https://nikitabobko.github.io/AeroSpace/guide
+# Reload after edits:  aerospace reload-config   (or alt-shift-esc in service mode)
+
+# Launch automatically (replaces Amethyst's role).
+start-at-login = true
+
+# Keep the container tree tidy (defaults).
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# --- Layout -----------------------------------------------------------------
+# tiles + auto orientation gives exactly the Amethyst behavior you wanted:
+#   * one window  -> fills the whole screen
+#   * two windows -> side-by-side on a landscape display ("vertical split")
+#   * stacked top/bottom on a portrait display
+# NOTE: AeroSpace calls side-by-side "horizontal" (the divider is vertical).
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+accordion-padding = 30
+
+# Mouse follows focus — center the cursor on the focused window / monitor.
+on-focus-changed = ['move-mouse window-lazy-center']
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+# Don't resurrect cmd-h hidden apps when switching workspaces.
+automatically-unhide-macos-hidden-apps = false
+
+# --- Gaps: flush, no padding ------------------------------------------------
+[gaps]
+inner.horizontal = 0
+inner.vertical = 0
+outer.left = 0
+outer.bottom = 0
+outer.top = 0
+outer.right = 0
+
+# --- Main keybindings (alt modifier) ----------------------------------------
+[mode.main.binding]
+
+# Toggle split orientation / accordion
+alt-slash = 'layout tiles horizontal vertical'
+alt-comma = 'layout accordion horizontal vertical'
+
+# Focus (vim hjkl)
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+
+# Move the focused window
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+# Resize
+alt-shift-minus = 'resize smart -50'
+alt-shift-equal = 'resize smart +50'
+
+# Fullscreen the focused window (fills the monitor, still AeroSpace-managed)
+alt-f = 'fullscreen'
+
+# Toggle floating <-> tiling for the focused window
+alt-shift-space = 'layout floating tiling'
+
+# Workspaces
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-6 = 'workspace 6'
+alt-7 = 'workspace 7'
+alt-8 = 'workspace 8'
+alt-9 = 'workspace 9'
+
+# Move focused window to a workspace
+alt-shift-1 = 'move-node-to-workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
+alt-shift-6 = 'move-node-to-workspace 6'
+alt-shift-7 = 'move-node-to-workspace 7'
+alt-shift-8 = 'move-node-to-workspace 8'
+alt-shift-9 = 'move-node-to-workspace 9'
+
+# Jump back to previous workspace; throw a workspace to the next monitor
+alt-tab = 'workspace-back-and-forth'
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around'
+
+# Enter service mode (reload / reset / float / close-others)
+alt-shift-semicolon = 'mode service'
+
+# --- Service mode -----------------------------------------------------------
+[mode.service.binding]
+esc = ['reload-config', 'mode main']
+r = ['flatten-workspace-tree', 'mode main']        # reset the layout tree
+f = ['layout floating tiling', 'mode main']
+backspace = ['close-all-windows-but-current', 'mode main']
+
+# Join the focused window into the neighbor's container
+alt-shift-h = ['join-with left', 'mode main']
+alt-shift-j = ['join-with down', 'mode main']
+alt-shift-k = ['join-with up', 'mode main']
+alt-shift-l = ['join-with right', 'mode main']
+
+# --- Float windows that tile poorly -----------------------------------------
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'      # System Settings
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.ActivityMonitor'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.calculator'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'org.pqrs.Karabiner-Elements.Settings'
+run = 'layout floating'
