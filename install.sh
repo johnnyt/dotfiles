@@ -144,7 +144,13 @@ if command -v mise >/dev/null 2>&1; then
 fi
 
 # ---------------------------------------------------------------------------
-# 6. fish — set as default shell + install plugins (fisher)
+# 6. SSH key — create if missing, register with GitHub + GitLab
+# ---------------------------------------------------------------------------
+info "Setting up SSH key..."
+bash "$DOTFILES/bin/setup-ssh.sh" || warn "SSH setup had issues — re-run bin/setup-ssh.sh"
+
+# ---------------------------------------------------------------------------
+# 7. fish — set as default shell + install plugins (fisher)
 # ---------------------------------------------------------------------------
 FISH_BIN="$(command -v fish || true)"
 if [ -n "$FISH_BIN" ]; then
@@ -161,7 +167,7 @@ if [ -n "$FISH_BIN" ]; then
 fi
 
 # ---------------------------------------------------------------------------
-# 7. macOS defaults
+# 8. macOS defaults
 # ---------------------------------------------------------------------------
 if [ "$SKIP_MACOS" != "1" ]; then
   info "Applying macOS defaults..."
