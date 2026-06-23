@@ -46,7 +46,7 @@ brew "pgcli"            # better psql REPL
 # ---------------------------------------------------------------------------
 brew "awscli"
 brew "flyctl"          # fly.io
-brew "ngrok"
+cask "ngrok"           # now distributed as a cask, not a formula
 
 # ---------------------------------------------------------------------------
 # CLI — language servers / build helpers

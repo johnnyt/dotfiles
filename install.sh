@@ -88,6 +88,12 @@ success "Homebrew ready."
 # ---------------------------------------------------------------------------
 # 3. Packages — everything lives in the Brewfile (formulae, casks, VS Code exts)
 # ---------------------------------------------------------------------------
+# AeroSpace's cask lives in a third-party tap. Newer Homebrew refuses to load
+# casks from untrusted taps, so trust it up front — otherwise `brew bundle`
+# aborts on aerospace. Safe to run every time (no-op once trusted).
+brew tap nikitabobko/tap >/dev/null 2>&1 || true
+brew trust nikitabobko/tap >/dev/null 2>&1 || true
+
 info "Installing packages from Brewfile (this can take a while)..."
 # Non-fatal: as a second user on a shared machine, brew may lack write access to
 # the prefix and fail mid-bundle. Already-installed packages are no-ops, so don't
@@ -150,7 +156,12 @@ seed claude/plugins/known_marketplaces.json .claude/plugins/known_marketplaces.j
 seed claude/plugins/config.json             .claude/plugins/config.json
 
 # Per-machine git identity (name/email) — not tracked, edit after install.
-if [ ! -f "$HOME/.gitconfig.local" ]; then
+# Clear a pre-existing broken symlink first (e.g. one left pointing at an old
+# dotfiles layout), otherwise the cp below would follow it and fail.
+if [ -L "$HOME/.gitconfig.local" ] && [ ! -e "$HOME/.gitconfig.local" ]; then
+  rm -f "$HOME/.gitconfig.local"
+fi
+if [ ! -e "$HOME/.gitconfig.local" ]; then
   cp "$DOTFILES/git/gitconfig.local.example" "$HOME/.gitconfig.local"
   warn "Created ~/.gitconfig.local — edit it with this machine's name/email."
 fi
