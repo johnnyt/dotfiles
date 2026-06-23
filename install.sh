@@ -95,11 +95,18 @@ brew tap nikitabobko/tap >/dev/null 2>&1 || true
 brew trust nikitabobko/tap >/dev/null 2>&1 || true
 
 info "Installing packages from Brewfile (this can take a while)..."
-# Non-fatal: as a second user on a shared machine, brew may lack write access to
-# the prefix and fail mid-bundle. Already-installed packages are no-ops, so don't
-# let a permission hiccup here abort the rest of the install.
-brew bundle --file="$DOTFILES/Brewfile" || warn "brew bundle had issues — re-run 'brew bundle' after sorting out Homebrew permissions."
-success "Packages installed."
+# Non-fatal by design: a single cask/font/tap failure shouldn't abort the whole
+# setup — the later steps that depend on brew (mise, fish) are individually
+# guarded, and the rest (symlinks, SSH, macOS defaults) don't need brew at all.
+# But we don't paper over it: record the failure, warn loudly at the end, and
+# exit non-zero so it's visible to a human and to automation.
+BREW_BUNDLE_OK=1
+if brew bundle --file="$DOTFILES/Brewfile"; then
+  success "Packages installed."
+else
+  BREW_BUNDLE_OK=0
+  warn "brew bundle had failures — some packages may be missing (see output above)."
+fi
 
 # ---------------------------------------------------------------------------
 # 4. Symlink dotfiles into place
@@ -206,4 +213,11 @@ if [ "$SKIP_MACOS" != "1" ]; then
   bash "$DOTFILES/macos/defaults.sh"
 fi
 
-success "Done. Open a new terminal (or log out/in) for everything to take effect."
+if [ "$BREW_BUNDLE_OK" -eq 1 ]; then
+  success "Done. Open a new terminal (or log out/in) for everything to take effect."
+else
+  warn "Done — but some Brewfile packages failed to install."
+  warn "  All other steps (dotfiles, SSH, shell, macOS defaults) completed."
+  warn "  Re-run after fixing the cause:  brew bundle --file=\"$DOTFILES/Brewfile\""
+  exit 1
+fi
