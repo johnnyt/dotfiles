@@ -8,6 +8,8 @@
 
 set -uo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # Set this machine's name (shows in Finder sidebar, Sharing, terminal host).
 COMPUTER_NAME="${COMPUTER_NAME:-}"
 
@@ -46,6 +48,17 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
 # Full keyboard access: Tab through all controls in dialogs.
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+
+# Caps Lock -> Escape (no Karabiner). hidutil applies it now; the LaunchAgent
+# reapplies it on every login since hidutil remaps don't survive a reboot.
+hidutil property --set \
+  '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x700000029}]}' \
+  >/dev/null
+AGENT="com.local.KeyRemapping"
+mkdir -p "${HOME}/Library/LaunchAgents"
+cp "${SCRIPT_DIR}/LaunchAgents/${AGENT}.plist" "${HOME}/Library/LaunchAgents/${AGENT}.plist"
+launchctl bootout "gui/$(id -u)/${AGENT}" 2>/dev/null || true
+launchctl bootstrap "gui/$(id -u)" "${HOME}/Library/LaunchAgents/${AGENT}.plist" 2>/dev/null || true
 
 ###############################################################################
 # Trackpad & input                                                            #
