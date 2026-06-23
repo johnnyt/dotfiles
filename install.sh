@@ -22,6 +22,23 @@ info()    { printf '\033[0;34m▸\033[0m %s\n' "$*"; }
 success() { printf '\033[0;32m✓\033[0m %s\n' "$*"; }
 warn()    { printf '\033[0;33m!\033[0m %s\n' "$*"; }
 
+# Ensure the Xcode Command Line Tools (git, clang, make, ...) are present.
+# `command -v git` is unreliable on a fresh Mac — /usr/bin/git is a stub that
+# only triggers the installer — so detect via xcode-select -p, and BLOCK until
+# the (GUI) installer actually finishes before returning.
+ensure_clt() {
+  if xcode-select -p >/dev/null 2>&1; then
+    return 0
+  fi
+  info "Installing Xcode Command Line Tools — accept the dialog that appears..."
+  xcode-select --install >/dev/null 2>&1 || true
+  until xcode-select -p >/dev/null 2>&1; do
+    printf '  …waiting for Command Line Tools to finish installing\n'
+    sleep 20
+  done
+  success "Xcode Command Line Tools installed."
+}
+
 # ---------------------------------------------------------------------------
 # bootstrap: this script may be curl-piped before the repo exists on disk.
 # If so, clone it and re-exec from the cloned copy.
@@ -29,8 +46,8 @@ warn()    { printf '\033[0;33m!\033[0m %s\n' "$*"; }
 REPO_URL="https://github.com/johnnyt/dotfiles"
 TARGET="$HOME/dotfiles"
 if [ ! -f "$DOTFILES/Brewfile" ]; then
+  ensure_clt   # need a working git before we can clone
   info "Cloning dotfiles to $TARGET ..."
-  command -v git >/dev/null 2>&1 || xcode-select --install || true
   git clone "$REPO_URL" "$TARGET"
   exec "$TARGET/install.sh"
 fi
@@ -38,14 +55,7 @@ fi
 # ---------------------------------------------------------------------------
 # 1. Xcode command line tools (git, clang, make, ...)
 # ---------------------------------------------------------------------------
-if xcode-select --print-path >/dev/null 2>&1; then
-  success "Xcode command line tools already installed."
-else
-  info "Installing Xcode command line tools..."
-  xcode-select --install || true
-  warn "Re-run this script once the CLT installer finishes."
-  exit 0
-fi
+ensure_clt
 
 # ---------------------------------------------------------------------------
 # 2. Homebrew
