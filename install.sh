@@ -60,19 +60,39 @@ ensure_clt
 # ---------------------------------------------------------------------------
 # 2. Homebrew
 # ---------------------------------------------------------------------------
-if ! command -v brew >/dev/null 2>&1; then
+# Detect brew by its on-disk location, not just $PATH. A brand-new user account
+# on a Mac that already has Homebrew won't have /opt/homebrew/bin on PATH yet
+# (that's wired up by `brew shellenv` in the shell rc, which a fresh login
+# hasn't sourced). Relying on `command -v brew` would wrongly conclude Homebrew
+# is missing and re-run the installer — which, finding an existing install owned
+# by another user, would try to chown the shared prefix to this user. Only run
+# the installer when no brew binary exists anywhere on disk.
+find_brew() {
+  local b
+  for b in /opt/homebrew/bin/brew /usr/local/bin/brew; do
+    [ -x "$b" ] && { printf '%s' "$b"; return 0; }
+  done
+  command -v brew 2>/dev/null   # last resort: a non-standard prefix already on PATH
+}
+
+BREW_BIN="$(find_brew)"
+if [ -z "$BREW_BIN" ]; then
   info "Installing Homebrew..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  BREW_BIN="$(find_brew)"
 fi
-# Put brew on PATH for the rest of this run (Apple Silicon path).
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# Put brew on PATH for the rest of this run.
+eval "$("$BREW_BIN" shellenv)"
 success "Homebrew ready."
 
 # ---------------------------------------------------------------------------
 # 3. Packages — everything lives in the Brewfile (formulae, casks, VS Code exts)
 # ---------------------------------------------------------------------------
 info "Installing packages from Brewfile (this can take a while)..."
-brew bundle --file="$DOTFILES/Brewfile"
+# Non-fatal: as a second user on a shared machine, brew may lack write access to
+# the prefix and fail mid-bundle. Already-installed packages are no-ops, so don't
+# let a permission hiccup here abort the rest of the install.
+brew bundle --file="$DOTFILES/Brewfile" || warn "brew bundle had issues — re-run 'brew bundle' after sorting out Homebrew permissions."
 success "Packages installed."
 
 # ---------------------------------------------------------------------------
