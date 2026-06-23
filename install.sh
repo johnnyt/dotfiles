@@ -201,7 +201,11 @@ if [ -n "$FISH_BIN" ]; then
     chsh -s "$FISH_BIN"
   fi
   info "Installing fish plugins (fisher)..."
-  "$FISH_BIN" -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update" || \
+  # `fisher install jorgebucaran/fisher` persists fisher itself (functions/
+  # fisher.fish) so the command survives into new shells; just sourcing it
+  # transiently does not, and also strips fisher from fish_plugins. Then
+  # `fisher update` installs the rest of the plugins listed in fish_plugins.
+  "$FISH_BIN" -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher && fisher update" || \
     warn "fisher install skipped — run 'fisher update' inside fish later."
 fi
 

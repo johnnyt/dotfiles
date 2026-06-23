@@ -1,0 +1,8 @@
+# Fisher itself and fisher-installed plugin files all land here because
+# ~/.config/fish/functions is symlinked to this directory. They're regenerated
+# by `fisher install`/`fisher update`, so track the plugin list (../fish_plugins)
+# rather than the installed files. Add a line per plugin file as plugins change.
+# (git never ignores already-tracked files, so your own functions are unaffected.)
+fisher.fish
+bass.fish
+__bass.py
