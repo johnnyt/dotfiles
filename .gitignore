@@ -7,3 +7,23 @@
 
 # nvim plugin state (managed by lazy.nvim, not tracked)
 nvim/lazy-lock.json.backup
+
+# Claude Code: only the curated files under claude/ are tracked. Guard against
+# ever dragging in runtime/private data (transcripts, history, caches, secrets).
+claude/projects/
+claude/history.jsonl
+claude/file-history/
+claude/sessions/
+claude/session-env/
+claude/shell-snapshots/
+claude/cache/
+claude/paste-cache/
+claude/backups/
+claude/telemetry/
+claude/debug/
+claude/tasks/
+claude/**/*-cache.json
+claude/plugins/cache/
+claude/plugins/repos/
+claude/plugins/marketplaces/
+claude/.last-*

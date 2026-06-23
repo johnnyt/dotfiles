@@ -82,6 +82,17 @@ link() {  # link <source-in-repo> <target-in-home>
   success "linked ~/$2"
 }
 
+seed() {  # seed <source-in-repo> <target-in-home> — copy only if target is missing
+  local src="$DOTFILES/$1" dst="$HOME/$2"
+  mkdir -p "$(dirname "$dst")"
+  if [ -e "$dst" ]; then
+    info "kept existing ~/$2"
+  else
+    cp "$src" "$dst"
+    success "seeded ~/$2"
+  fi
+}
+
 info "Linking dotfiles..."
 link git/gitconfig          .gitconfig
 link git/gitignore_global   .gitignore_global
@@ -94,6 +105,18 @@ link fish/fish_plugins      .config/fish/fish_plugins
 link fish/functions         .config/fish/functions
 link nvim                   .config/nvim
 link vscode/settings.json   "Library/Application Support/Code/User/settings.json"
+
+# Claude Code — hand-curated config + memory are symlinked (tracked live).
+link claude/CLAUDE.md           .claude/CLAUDE.md
+link claude/settings.json       .claude/settings.json
+link claude/settings.local.json .claude/settings.local.json
+# Memory lives under the cwd-derived project dir; assumes username 'johnnyt'.
+link claude/memory              ".claude/projects/-Users-${USER}/memory"
+# Plugin manifests carry machine-specific install paths/timestamps that Claude
+# Code rewrites, so seed them (copy-if-missing) rather than symlink.
+seed claude/plugins/installed_plugins.json  .claude/plugins/installed_plugins.json
+seed claude/plugins/known_marketplaces.json .claude/plugins/known_marketplaces.json
+seed claude/plugins/config.json             .claude/plugins/config.json
 
 # Per-machine git identity (name/email) — not tracked, edit after install.
 if [ ! -f "$HOME/.gitconfig.local" ]; then

@@ -1,0 +1,1 @@
+- [Dotfiles rebuild 2026](dotfiles-rebuild-2026.md) — new ~/dotfiles-new (brew+mise+fish+ghostty) replacing old ~/dotfiles

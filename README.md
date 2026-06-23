@@ -42,7 +42,23 @@ Skip the macOS tweaks with `SKIP_MACOS=1 ~/dotfiles/install.sh`.
 | Editor    | Neovim              | `nvim/`                 | `~/.config/nvim`                |
 | Editor    | VS Code             | `vscode/settings.json`  | VS Code `User/settings.json`    |
 | Git       | git                 | `git/`                  | `~/.gitconfig`, etc.            |
+| Claude    | Claude Code         | `claude/`               | `~/.claude/` (curated subset)   |
 | System    | macOS defaults      | `macos/defaults.sh`     | —                               |
+
+### Claude Code (`claude/`)
+
+Only a curated, portable subset of `~/.claude` is tracked — **never** the
+transcripts (`projects/`), `history.jsonl`, caches, or session state.
+
+- `CLAUDE.md`, `settings.json`, `settings.local.json`, and `memory/` are
+  **symlinked** (so edits are tracked live).
+- Plugin manifests (`plugins/*.json`) are **seeded** (copied only if missing),
+  because they contain machine-specific install paths Claude Code rewrites.
+- Memory links to `~/.claude/projects/-Users-$USER/memory`, which assumes you
+  launch Claude from your home directory and your username matches.
+
+> If you ever make this repo **public**, review `claude/memory/` and
+> `claude/settings*.json` first — memory notes can reference private context.
 
 ## Day-to-day
 

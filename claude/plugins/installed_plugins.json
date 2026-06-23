@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "plugins": {
+    "rust-analyzer-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/johnnyt/.claude/plugins/cache/claude-plugins-official/rust-analyzer-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-05-17T17:53:43.494Z",
+        "lastUpdated": "2026-05-17T17:53:43.494Z"
+      }
+    ],
+    "swift-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/johnnyt/.claude/plugins/cache/claude-plugins-official/swift-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-05-18T12:37:27.301Z",
+        "lastUpdated": "2026-05-18T12:37:27.301Z"
+      }
+    ]
+  }
+}
