@@ -108,6 +108,16 @@ brew tap nikitabobko/tap >/dev/null 2>&1 || true
 brew trust nikitabobko/tap >/dev/null 2>&1 || true
 
 info "Installing packages from Brewfile (this can take a while)..."
+
+# Some casks (docker-desktop, zoom, Dato, ...) run privileged installers that
+# each invoke sudo. A single `sudo -v` cache expires (~5 min) partway through a
+# long bundle, so they'd prompt for the password again and again. Prime sudo
+# once, then refresh the timestamp in the background until the bundle finishes
+# (the keep-alive exits on its own if this script dies).
+sudo -v
+( while true; do sudo -n true; sleep 60; kill -0 "$$" 2>/dev/null || exit; done ) &
+SUDO_KEEPALIVE_PID=$!
+
 # Non-fatal by design: a single cask/font/tap failure shouldn't abort the whole
 # setup — the later steps that depend on brew (mise, fish) are individually
 # guarded, and the rest (symlinks, SSH, macOS defaults) don't need brew at all.
@@ -120,6 +130,10 @@ else
   BREW_BUNDLE_OK=0
   warn "brew bundle had failures — some packages may be missing (see output above)."
 fi
+
+# Stop refreshing sudo; drop the cached timestamp now that the casks are done.
+kill "$SUDO_KEEPALIVE_PID" 2>/dev/null || true
+sudo -k 2>/dev/null || true
 
 # ---------------------------------------------------------------------------
 # 4. Symlink dotfiles into place
