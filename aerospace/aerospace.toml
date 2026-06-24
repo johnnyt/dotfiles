@@ -48,6 +48,10 @@ alt-j = 'focus down'
 alt-k = 'focus up'
 alt-l = 'focus right'
 
+# Cycle through every window in the workspace (DFS order: < prev, > next)
+alt-shift-comma = 'focus dfs-prev'
+alt-shift-period = 'focus dfs-next'
+
 # Move the focused window
 alt-shift-h = 'move left'
 alt-shift-j = 'move down'
@@ -58,11 +62,20 @@ alt-shift-l = 'move right'
 alt-shift-minus = 'resize smart -50'
 alt-shift-equal = 'resize smart +50'
 
+# Reset all window sizes in the workspace back to equal
+alt-shift-0 = 'balance-sizes'
+
 # Fullscreen the focused window (fills the monitor, still AeroSpace-managed)
 alt-f = 'fullscreen'
 
 # Toggle floating <-> tiling for the focused window
 alt-shift-space = 'layout floating tiling'
+
+# Close the focused window (no titlebar close button in a tiling WM)
+alt-shift-q = 'close'
+
+# Launch a new terminal
+alt-enter = 'exec-and-forget open -na Ghostty'
 
 # Workspaces
 alt-1 = 'workspace 1'
