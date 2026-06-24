@@ -7,7 +7,7 @@ font-size = 14
 font-thicken = true
 
 # --- Theme --------------------------------------------------------------
-theme = "catppuccin-mocha"
+theme = "Embark"
 background-opacity = 0.97
 background-blur = 20
 
@@ -18,6 +18,7 @@ window-save-state = always
 macos-titlebar-style = tabs
 mouse-hide-while-typing = true
 copy-on-select = clipboard
+macos-option-as-alt = true
 
 # --- Shell --------------------------------------------------------------
 # Uses your default login shell (fish, set by install.sh). Uncomment to force:
@@ -26,3 +27,5 @@ copy-on-select = clipboard
 # --- Keybindings --------------------------------------------------------
 keybind = cmd+enter=toggle_fullscreen
 keybind = cmd+k=clear_screen
+keybind = global:cmd+grave_accent=toggle_quick_terminal
+keybind = shift+enter=text:\x1b\r

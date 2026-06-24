@@ -1,3 +1,21 @@
+# --- "Embark" palette (matches tmux + Ghostty) -------------------------
+palette = "embark"
+
+[palettes.embark]
+inky    = "#100e23"   # space0
+space1  = "#1e1c31"
+dim     = "#585273"   # space4
+muted   = "#8a889d"   # astral0
+bright  = "#cbe3e7"   # astral1
+purple  = "#d4bfff"
+indigo  = "#7676ff"   # dark_purple
+blue    = "#78a8ff"
+cyan    = "#abf8f7"
+green   = "#a1efd3"
+pink    = "#f48fb1"
+magenta = "#f02e6e"
+yellow  = "#ffe6b3"
+
 [aws]
 disabled = true
 
@@ -13,5 +31,25 @@ disabled = true
 # [os]
 # disabled = false
 
+# --- Module styling -----------------------------------------------------
+[directory]
+style = "bold purple"
+
+[git_branch]
+style = "indigo"
+symbol = " "
+
+[git_status]
+style = "pink"
+
+[character]
+success_symbol = "[❯](bold indigo)"
+error_symbol   = "[❯](bold magenta)"
+vicmd_symbol   = "[❮](bold purple)"
+
+[cmd_duration]
+style = "muted"
+
 [time]
 disabled = false
+style = "muted"
