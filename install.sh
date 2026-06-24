@@ -12,7 +12,11 @@
 #
 set -euo pipefail
 
-DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# When curl-piped (bash -c "$(curl ...)" or curl | bash) the script has no
+# source file, so BASH_SOURCE is unset — fall back to $0 to avoid tripping
+# `set -u`. DOTFILES is bogus in that case, but the bootstrap block below
+# detects the missing repo, clones it, and re-execs from the real file.
+DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
 SKIP_MACOS="${SKIP_MACOS:-0}"
 
 # ---------------------------------------------------------------------------
