@@ -4,7 +4,7 @@
 # --- Font ---------------------------------------------------------------
 font-family = "FiraCode Nerd Font Mono"
 font-size = 14
-font-thicken = true
+font-thicken = false
 
 # --- Theme --------------------------------------------------------------
 theme = "Embark"

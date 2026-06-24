@@ -74,8 +74,9 @@ alt-shift-space = 'layout floating tiling'
 # Close the focused window (no titlebar close button in a tiling WM)
 alt-shift-q = 'close'
 
-# Launch a new terminal
-alt-enter = 'exec-and-forget open -na Ghostty'
+# New Ghostty window in the existing instance (avoid spawning a 2nd instance,
+# which 'open -na' can do). osascript focuses Ghostty and sends cmd+n.
+alt-enter = '''exec-and-forget osascript -e 'tell application "Ghostty" to activate' -e 'tell application "System Events" to keystroke "n" using command down' '''
 
 # Workspaces
 alt-1 = 'workspace 1'
