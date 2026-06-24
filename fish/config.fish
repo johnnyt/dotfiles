@@ -35,12 +35,30 @@ if status is-interactive
     alias dc "docker compose"
     alias v  nvim
     alias r  ranger
-    alias g  git
-    alias gma "git checkout master"
     alias gn  "git checkout main"
     alias tn  "tmux new -s (basename (pwd))"
     alias tng "tmux new -s general"
     alias cat bat
+
+    # Abbreviations — expand inline as you type (so they show up verbatim in
+    # history). These previously lived only in fish universal variables
+    # (~/.config/fish/fish_variables), which isn't version-controlled, so they
+    # never followed to new machines. Defining them here fixes that.
+    abbr -a g    git
+    abbr -a ga   'git add'
+    abbr -a gc   'git commit -m'
+    abbr -a gco  'git checkout'
+    abbr -a gd   'git diff'
+    abbr -a gf   'git fetch'
+    abbr -a gm   'git pull --ff-only'
+    abbr -a gma  'git checkout master'
+    abbr -a gp   'git push'
+    abbr -a gs   'git status'
+    abbr -a gst  'git status'
+    abbr -a gba  'git branch -a'
+    abbr -a l    'ls -lah'
+    abbr -a bs   'brew services'
+    abbr -a bx   'bundle exec'
 
     # fzf key bindings (Ctrl-R history, Ctrl-T files)
     type -q fzf; and fzf --fish | source
