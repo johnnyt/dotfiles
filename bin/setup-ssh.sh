@@ -65,9 +65,11 @@ TITLE="$(hostname -s)-$(date +%Y%m%d)"
 # ---------------------------------------------------------------------------
 # Short-circuit if the existing key already authenticates — no point adding it
 # again or opening a browser. GitHub exits 1 even on success, so match the
-# banner text rather than the exit code.
-if ssh -T -o StrictHostKeyChecking=accept-new -o ConnectTimeout=5 git@github.com 2>&1 \
-     | grep -q "successfully authenticated"; then
+# banner text rather than the exit code. NOTE: capture the output first instead
+# of piping `ssh | grep` directly — under `set -o pipefail` the pipeline inherits
+# ssh's exit 1 even when grep matches, which would defeat this check entirely.
+gh_probe="$(ssh -T -o StrictHostKeyChecking=accept-new -o ConnectTimeout=5 git@github.com 2>&1 || true)"
+if printf '%s' "$gh_probe" | grep -q "successfully authenticated"; then
   success "GitHub SSH already works — skipping key registration."
 elif command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1; then
   if gh ssh-key add "$PUB" --title "$TITLE" >/dev/null 2>&1; then
@@ -85,9 +87,10 @@ fi
 # ---------------------------------------------------------------------------
 # 5. GitLab
 # ---------------------------------------------------------------------------
-# Same short-circuit as GitHub; GitLab's success banner is "Welcome to GitLab".
-if ssh -T -o StrictHostKeyChecking=accept-new -o ConnectTimeout=5 git@gitlab.com 2>&1 \
-     | grep -q "Welcome to GitLab"; then
+# Same short-circuit as GitHub (incl. the pipefail-safe capture); GitLab's
+# success banner is "Welcome to GitLab".
+gl_probe="$(ssh -T -o StrictHostKeyChecking=accept-new -o ConnectTimeout=5 git@gitlab.com 2>&1 || true)"
+if printf '%s' "$gl_probe" | grep -q "Welcome to GitLab"; then
   success "GitLab SSH already works — skipping key registration."
 elif command -v glab >/dev/null 2>&1 && glab auth status >/dev/null 2>&1; then
   if glab ssh-key add "$PUB" --title "$TITLE" >/dev/null 2>&1; then
