@@ -76,8 +76,11 @@ find_brew() {
   for b in /opt/homebrew/bin/brew /usr/local/bin/brew; do
     [ -x "$b" ] && { printf '%s' "$b"; return 0; }
   done
-  command -v brew 2>/dev/null   # last resort: a non-standard prefix already on PATH
+  command -v brew 2>/dev/null || true   # non-standard prefix on PATH, else empty
 }
+# NOTE: the `|| true` is load-bearing. Without it, on a machine with no brew
+# `find_brew` returns 1, and `BREW_BIN="$(find_brew)"` under `set -e` aborts the
+# script *silently* (bash 3.2 exits on a failed command-substitution assignment).
 
 BREW_BIN="$(find_brew)"
 if [ -z "$BREW_BIN" ]; then
