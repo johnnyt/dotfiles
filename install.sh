@@ -85,6 +85,12 @@ find_brew() {
 BREW_BIN="$(find_brew)"
 if [ -z "$BREW_BIN" ]; then
   info "Installing Homebrew..."
+  # Homebrew's NONINTERACTIVE installer checks sudo with `sudo -n -v`, which
+  # never prompts — so on a fresh machine with no cached credentials it aborts
+  # with "Need sudo access on macOS" even for an admin user. Prime the sudo
+  # credential cache first (one password prompt) so the installer finds it.
+  info "Homebrew needs administrator access — enter your macOS password if prompted."
+  sudo -v
   NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   BREW_BIN="$(find_brew)"
 fi
