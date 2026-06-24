@@ -128,6 +128,12 @@ defaults write com.apple.dock expose-animation-duration -float 0.12
 defaults write com.apple.dock mru-spaces -bool false           # don't reorder Spaces
 defaults write com.apple.dock show-process-indicators -bool true
 
+# Hot corner: top-right = Lock Screen (no modifier key required).
+# Corner action codes: 5=Start Screen Saver, 10=Put Display to Sleep,
+# 13=Lock Screen, 1=disabled. To use the screen saver instead, change 13 -> 5.
+defaults write com.apple.dock wvous-tr-corner -int 13
+defaults write com.apple.dock wvous-tr-modifier -int 0
+
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
