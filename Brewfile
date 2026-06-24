@@ -72,7 +72,6 @@ cask "aerospace"               # tiling window manager (i3-style, config in aero
 cask "docker-desktop"
 cask "vivaldi"
 cask "dropbox"
-cask "lastpass"
 cask "slack"
 cask "zoom"
 cask "postman"
