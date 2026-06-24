@@ -181,3 +181,5 @@ hs_err_pid*
 *.su
 *.idb
 *.pdb
+
+**/.claude/settings.local.json
