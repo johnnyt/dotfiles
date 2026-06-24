@@ -76,6 +76,7 @@ cask "slack"
 cask "zoom"
 cask "postman"
 cask "istat-menus"             # system monitoring in the menu bar
+cask "maccy"                   # clipboard history manager
 
 # ---------------------------------------------------------------------------
 # GUI — optional / situational (uncomment as needed)
