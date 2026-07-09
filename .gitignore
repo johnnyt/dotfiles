@@ -5,6 +5,10 @@
 # per-machine git identity (created from git/gitconfig.local.example)
 .gitconfig.local
 
+# Claude Code per-machine permission grants (seeded from the .example, then
+# accumulates machine-specific allow-list entries — kept out of the repo)
+claude/settings.local.json
+
 # nvim plugin state (managed by lazy.nvim, not tracked)
 nvim/lazy-lock.json.backup
 

@@ -180,7 +180,9 @@ link vscode/settings.json   "Library/Application Support/Code/User/settings.json
 # Claude Code — hand-curated config + memory are symlinked (tracked live).
 link claude/CLAUDE.md           .claude/CLAUDE.md
 link claude/settings.json       .claude/settings.json
-link claude/settings.local.json .claude/settings.local.json
+# settings.local.json holds per-machine permission grants Claude Code rewrites
+# at runtime, so it's untracked — seed a baseline from the .example (copy-if-missing).
+seed claude/settings.local.json.example .claude/settings.local.json
 # Memory lives under the cwd-derived project dir; assumes username 'johnnyt'.
 link claude/memory              ".claude/projects/-Users-${USER}/memory"
 # Plugin manifests carry machine-specific install paths/timestamps that Claude

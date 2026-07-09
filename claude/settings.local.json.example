@@ -6,7 +6,12 @@
       "Bash(brew list *)",
       "Bash(git config *)",
       "Bash(git --version)",
-      "Bash(mise ls *)"
+      "Bash(mise --version)",
+      "Bash(mise ls *)",
+      "Bash(mise registry *)",
+      "Bash(claude mcp *)",
+      "Bash(claude plugin *)",
+      "WebSearch"
     ]
   }
 }
