@@ -5,7 +5,7 @@ input=$(cat)
 model=$(jq -r '.model.display_name // "?"' <<<"$input")
 dir=$(jq -r '.workspace.current_dir // .cwd // "?"' <<<"$input")
 tokens=$(jq -r '.context_window.total_input_tokens // empty' <<<"$input")
-ctx_max=$(jq -r '.context_window.context_window // empty' <<<"$input")
+ctx_max=$(jq -r '.context_window.context_window_size // empty' <<<"$input")
 
 branch=""
 if [ -d "$dir/.git" ] || git -C "$dir" rev-parse --git-dir >/dev/null 2>&1; then
