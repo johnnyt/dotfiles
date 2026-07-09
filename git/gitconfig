@@ -1,7 +1,7 @@
 [user]
   email = ubergeek3141@gmail.com
-[include]
-  ; per-machine name/email lives here (untracked)
+[includeIf "gitdir:~/Dev/amby/"]
+  ; Amby AI identity (johnnyt@heyamby.ai) — only for repos under ~/Dev/amby/
   path = ~/.gitconfig.local
 
 [core]

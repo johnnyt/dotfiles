@@ -68,6 +68,7 @@ cask "font-fira-code-nerd-font"
 cask "ghostty"                 # primary terminal
 cask "visual-studio-code"
 cask "claude"
+cask "claude-code"
 cask "aerospace"               # tiling window manager (i3-style, config in aerospace/)
 cask "docker-desktop"
 cask "vivaldi"

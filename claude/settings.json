@@ -14,10 +14,12 @@
   },
   "enabledPlugins": {
     "rust-analyzer-lsp@claude-plugins-official": true,
-    "swift-lsp@claude-plugins-official": true
+    "swift-lsp@claude-plugins-official": true,
+    "slack@claude-plugins-official": true
   },
   "effortLevel": "medium",
+  "tui": "fullscreen",
+  "theme": "dark",
   "verbose": true,
-  "preferredNotifChannel": "terminal_bell",
-  "tui": "fullscreen"
+  "preferredNotifChannel": "terminal_bell"
 }

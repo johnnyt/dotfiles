@@ -27,6 +27,13 @@ fish_add_path ~/bin ~/.local/bin ~/.mix/escripts
 # `type -q` checks fail silently and you get no prompt / no key bindings.
 test -x /opt/homebrew/bin/brew; and eval (/opt/homebrew/bin/brew shellenv)
 
+# Android SDK — cmdline-tools installed via brew cask (android-commandlinetools);
+# SDK packages under this root. Flutter finds it via its own config, but adb /
+# emulator need to be on PATH for direct use. JDK is managed by mise.
+set -gx ANDROID_HOME /opt/homebrew/share/android-commandlinetools
+set -gx ANDROID_SDK_ROOT $ANDROID_HOME
+fish_add_path $ANDROID_HOME/platform-tools $ANDROID_HOME/emulator
+
 # ---------------------------------------------------------------------------
 # Interactive shell only
 # ---------------------------------------------------------------------------
