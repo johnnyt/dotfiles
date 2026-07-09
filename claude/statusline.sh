@@ -19,11 +19,11 @@ bright_red=$'\033[1;31m'
 dim=$'\033[2m'
 
 if [ -n "$tokens" ]; then
-  if [ "$tokens" -ge 200000 ]; then
+  if [ "$tokens" -ge 120000 ]; then
     color=$bright_red
-  elif [ "$tokens" -ge 150000 ]; then
+  elif [ "$tokens" -ge 90000 ]; then
     color=$red
-  elif [ "$tokens" -ge 100000 ]; then
+  elif [ "$tokens" -ge 60000 ]; then
     color=$yellow
   else
     color=$green
