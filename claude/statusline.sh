@@ -5,6 +5,7 @@ input=$(cat)
 model=$(jq -r '.model.display_name // "?"' <<<"$input")
 dir=$(jq -r '.workspace.current_dir // .cwd // "?"' <<<"$input")
 tokens=$(jq -r '.context_window.total_input_tokens // empty' <<<"$input")
+ctx_max=$(jq -r '.context_window.context_window // empty' <<<"$input")
 
 branch=""
 if [ -d "$dir/.git" ] || git -C "$dir" rev-parse --git-dir >/dev/null 2>&1; then
@@ -19,11 +20,16 @@ bright_red=$'\033[1;31m'
 dim=$'\033[2m'
 
 if [ -n "$tokens" ]; then
-  if [ "$tokens" -ge 120000 ]; then
+  if [ -n "$ctx_max" ] && [ "$ctx_max" -ge 500000 ]; then
+    t_bright=200000; t_red=150000; t_yellow=100000
+  else
+    t_bright=120000; t_red=90000; t_yellow=60000
+  fi
+  if [ "$tokens" -ge "$t_bright" ]; then
     color=$bright_red
-  elif [ "$tokens" -ge 90000 ]; then
+  elif [ "$tokens" -ge "$t_red" ]; then
     color=$red
-  elif [ "$tokens" -ge 60000 ]; then
+  elif [ "$tokens" -ge "$t_yellow" ]; then
     color=$yellow
   else
     color=$green
