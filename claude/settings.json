@@ -17,9 +17,15 @@
     "swift-lsp@claude-plugins-official": true,
     "slack@claude-plugins-official": true
   },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh",
+    "padding": 1
+  },
   "effortLevel": "medium",
   "tui": "fullscreen",
   "theme": "dark",
   "verbose": true,
-  "preferredNotifChannel": "terminal_bell"
+  "preferredNotifChannel": "terminal_bell",
+  "model": "sonnet"
 }

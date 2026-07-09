@@ -183,6 +183,7 @@ link claude/settings.json       .claude/settings.json
 # settings.local.json holds per-machine permission grants Claude Code rewrites
 # at runtime, so it's untracked — seed a baseline from the .example (copy-if-missing).
 seed claude/settings.local.json.example .claude/settings.local.json
+link claude/statusline.sh       .claude/statusline.sh
 # Memory lives under the cwd-derived project dir; assumes username 'johnnyt'.
 link claude/memory              ".claude/projects/-Users-${USER}/memory"
 # Plugin manifests carry machine-specific install paths/timestamps that Claude
