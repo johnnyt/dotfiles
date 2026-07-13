@@ -1,5 +1,6 @@
 [user]
   email = ubergeek3141@gmail.com
+  name = JohnnyT
 [includeIf "gitdir:~/Dev/amby/"]
   ; Amby AI identity (johnnyt@heyamby.ai) — only for repos under ~/Dev/amby/
   path = ~/.gitconfig.local
