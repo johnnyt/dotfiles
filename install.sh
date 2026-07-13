@@ -186,6 +186,9 @@ seed claude/settings.local.json.example .claude/settings.local.json
 link claude/statusline.sh       .claude/statusline.sh
 # Memory lives under the cwd-derived project dir; assumes username 'johnnyt'.
 link claude/memory              ".claude/projects/-Users-${USER}/memory"
+# Custom agents & skills — hand-authored, tracked live (whole dirs symlinked).
+link claude/agents              .claude/agents
+link claude/skills              .claude/skills
 # Plugin manifests carry machine-specific install paths/timestamps that Claude
 # Code rewrites, so seed them (copy-if-missing) rather than symlink.
 seed claude/plugins/installed_plugins.json  .claude/plugins/installed_plugins.json

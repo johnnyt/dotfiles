@@ -1,11 +1,12 @@
 {
+  "model": "sonnet",
   "hooks": {
     "Stop": [
       {
         "hooks": [
           {
             "type": "command",
-            "command": "osascript -e 'display notification \"Claude is waiting for input\" with title \"Claude Code\" sound name \"Glass\"' 2>/dev/null || true",
+            "command": "input=$(cat 2>/dev/null); case \"$input\" in *SubagentStop*) exit 0 ;; esac; osascript -e 'display notification \"Claude is waiting for input\" with title \"Claude Code\" sound name \"Glass\"' 2>/dev/null || true",
             "async": true
           }
         ]
@@ -26,6 +27,5 @@
   "tui": "fullscreen",
   "theme": "dark",
   "verbose": true,
-  "preferredNotifChannel": "terminal_bell",
-  "model": "sonnet"
+  "preferredNotifChannel": "terminal_bell"
 }

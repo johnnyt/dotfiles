@@ -51,8 +51,9 @@ Skip the macOS tweaks with `SKIP_MACOS=1 ~/dotfiles/install.sh`.
 Only a curated, portable subset of `~/.claude` is tracked — **never** the
 transcripts (`projects/`), `history.jsonl`, caches, or session state.
 
-- `CLAUDE.md`, `settings.json`, `settings.local.json`, and `memory/` are
-  **symlinked** (so edits are tracked live).
+- `CLAUDE.md`, `settings.json`, `settings.local.json`, `statusline.sh`,
+  `memory/`, `agents/`, and `skills/` are **symlinked** (so edits are tracked
+  live). `agents/` and `skills/` hold hand-authored custom agents and skills.
 - Plugin manifests (`plugins/*.json`) are **seeded** (copied only if missing),
   because they contain machine-specific install paths Claude Code rewrites.
 - Memory links to `~/.claude/projects/-Users-$USER/memory`, which assumes you
