@@ -6,6 +6,7 @@
 ## Git
 - Never add Claude attribution to commit messages or PR bodies. Do not include
   `Co-Authored-By: Claude ...` trailers or "Generated with Claude Code" lines.
+  If a project's CLAUDE.md specifies different attribution behavior, follow that instead.
 
 ## Notion
 - For **reading** Notion (fetch, search, data-source/view queries, meeting notes,
